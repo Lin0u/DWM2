@@ -1,215 +1,102 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>Fit Express - Pide tu Bowl Saludable</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        :root {
-            --fit-green: #28a745; /* Verde vibrante de Fit Express */
-            --fit-dark: #1e1e28;
-            --fit-card: #2d2d39;
-            --fit-border: #444455;
-            --text-light: #f8f9fa;
-        }
-
-        body {
-            background-color: var(--fit-dark) !important;
-            color: var(--text-light);
-            padding-top: 20px;
-        }
-        .navbar {
-            background-color: var(--fit-card) !important;
-            border-bottom: 1px solid var(--fit-border);
-        }
-        .navbar-brand {
-            color: var(--fit-green) !important;
-            font-weight: bold;
-            font-size: 1.5rem;
-        }
-        .card-bowl {
-            background-color: var(--fit-card);
-            color: var(--text-light);
-            border: 1px solid var(--fit-border);
-            transition: transform 0.2s, box-shadow 0.2s;
-            height: 100%; /* Asegura que todas las tarjetas tengan la misma altura */
-        }
-        .card-bowl:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
-        }
-        .card-title {
-            color: var(--fit-green);
-        }
-        .btn-add-cart {
-            background-color: var(--fit-green);
-            border-color: var(--fit-green);
-            transition: background-color 0.2s;
-        }
-        .btn-add-cart:hover {
-            background-color: #1e7e34;
-            border-color: #1e7e34;
-        }
-        .price-tag {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #ffc107; /* Amarillo para el precio */
-        }
-        /* Estilo para el ícono del carrito */
-        .cart-icon {
-            color: var(--text-light);
-            font-size: 1.5rem;
-            position: relative;
-        }
-        .cart-badge {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            padding: 2px 7px;
-            border-radius: 50%;
-            background-color: #dc3545; /* Rojo para notificaciones */
-            color: white;
-            font-size: 0.75rem;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FitExpress - Bowls Gourmet</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg sticky-top">
-        <div class="container-fluid container">
-            <a class="navbar-brand" href="index.html">🥗 Fit Express</a>
-            <div class="d-flex">
-                <a class="nav-link cart-icon me-3" href="Carrito.html">
-                    🛒 
-                    <span class="cart-badge" id="cart-count">0</span>
-                </a>
-                <a class="nav-link text-light btn btn-sm btn-outline-secondary" href="Login.html" id="auth-link">
-                    Iniciar Sesión
-                </a>
-                <a class="nav-link text-light btn btn-sm btn-danger ms-2 d-none" href="#" id="logout-button">
-                    Salir
-                </a>
-            </div>
+  <header class="main-header sticky-top">
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid container">
+        <a class="navbar-brand logo" href="index.html">🥗 FitExpress</a>
+        
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+          <ul class="navbar-nav category-menu">
+            <li class="nav-item"><a class="nav-link text-warning fw-bold" href="Suscripcion.html">SUSCRIPCIÓN SEMANAL</a></li>
+            <li class="nav-item"><a class="nav-link" href="#featured-section">Destacados</a></li>
+            <li class="nav-item"><a class="nav-link" href="#bowls">Bowls Proteicos</a></li>
+            <li class="nav-item"><a class="nav-link" href="#combos">Combos & Promos</a></li>
+          </ul>
         </div>
+        
+        <div class="d-flex align-items-center">
+          <a class="nav-link cart-icon me-3" href="CarritoCompra.html"> 
+            🛒 <span class="cart-badge" id="cart-count">0</span>
+          </a>
+          <a class="nav-link text-light" href="perfil.html">👤</a>
+        </div>
+      </div>
     </nav>
-    <div class="container mt-4">
-        <h1 class="text-center mb-5 text-light">Menú de Bowls Saludables 💪</h1>
+  </header>
 
-        <div class="row row-cols-1 row-cols-md-3 g-4" id="products-list">
-            </div>
+  <div class="hero-banner text-center d-flex align-items-center justify-content-center">
+    <div class="container">
+      <h1 class="display-3 fw-bold text-uppercase">El Sabor de la Nutrición</h1>
+      <p class="lead text-light-50">Bowls frescos y poderosos, listos para tu ritmo.</p>
+      <a href="#bowls" class="btn btn-lg btn-accent mt-3">Ver Menú Completo ↓</a>
     </div>
+  </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Array de productos (Bowls de Fit Express)
-        const products = [
-            { id: "bowl001", name: "Bowl Proteico Keto", description: "Base de coliflor, pollo a la plancha, palta, queso feta y nueces. ¡Bajo en carbohidratos!", category: "Keto", price: 8500, stock: 50, imageUrl: "keto.jpg" },
-            { id: "bowl002", name: "Bowl Vegano Power", description: "Base de quinoa, garbanzos, tofu marinado, espinacas frescas y vinagreta de limón.", category: "Vegano", price: 7800, stock: 40, imageUrl: "vegano.jpg" },
-            { id: "bowl003", name: "Bowl Clásico Fit", description: "Base de arroz integral, salmón ahumado, edamames, zanahoria rallada y sésamo.", category: "Clásico", price: 9200, stock: 60, imageUrl: "clasico.jpg" },
-            { id: "bowl004", name: "Bowl Desintoxicante", description: "Base de mix de hojas verdes, pepino, manzana verde, apio y aderezo de jengibre. Ideal para depurar.", category: "Detox", price: 7500, stock: 35, imageUrl: "detox.jpg" }
-        ];
+  <div class="container my-5" id="featured-section">
+    <h2 class="section-title text-center mb-4 text-uppercase">Solo Para Ti (Nuestras Ofertas)</h2>
+    <div class="row row-cols-1 row-cols-md-2 g-4" id="products-featured">
+        </div>
+  </div>
 
-        const formatCurrency = (number) => {
-            return '$' + Math.round(number).toLocaleString('es-CL');
-        };
+  <div class="container my-5" id="bowls">
+    <h2 class="section-title text-center mb-5 text-uppercase">Menú de Bowls Saludables </h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4" id="products-list">
+      </div>
+  </div>
 
-        function getShoppingCart() {
-            return JSON.parse(localStorage.getItem('shoppingCart')) || {};
-        }
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/main.js"></script> 
+  
+  <script>
+    const featuredContainer = document.getElementById('products-featured');
+    const allContainer = document.getElementById('products-list');
 
-        function saveShoppingCart(cart) {
-            localStorage.setItem('shoppingCart', JSON.stringify(cart));
-        }
+    function renderProducts() {
+        const featuredProducts = products.slice(0, 2); 
+        const remainingProducts = products.slice(2); 
 
-        function updateCartCount() {
-            const cart = getShoppingCart();
-            let totalItems = 0;
-            Object.keys(cart).forEach(id => {
-                totalItems += cart[id].quantity;
-            });
-            document.getElementById('cart-count').textContent = totalItems;
-        }
+        // RENDER DESTACADOS (2 Columnas)
+        featuredContainer.innerHTML = featuredProducts.map(p => renderProductCard(p, 'col-md-6')).join('');
 
-        function renderProducts() {
-            const container = document.getElementById('products-list');
-            let html = '';
-
-            products.forEach(product => {
-                html += `
-                    <div class="col">
-                        <div class="card card-bowl">
-                            <img src="https://via.placeholder.com/400x200?text=${product.name.replace(/ /g, '+')}" class="card-img-top" alt="Imagen del Bowl ${product.name}">
-                            <div class="card-body">
-                                <h5 class="card-title">${product.name}</h5>
-                                <p class="card-text text-secondary mb-2">${product.description}</p>
-                                <span class="badge bg-success mb-3">${product.category}</span>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span class="price-tag">${formatCurrency(product.price)}</span>
-                                    <button type="button" class="btn btn-primary btn-add-cart" onclick="addToCart('${product.id}')">
-                                        + Agregar
-                                    </button>
-                                </div>
-                            </div>
+        // RENDER MENÚ PRINCIPAL (3 Columnas)
+        allContainer.innerHTML = remainingProducts.map(p => renderProductCard(p, 'col-md-4')).join('');
+    }
+    
+    function renderProductCard(p, colSize) {
+        return `
+            <div class="${colSize}">
+                <div class="card card-bowl h-100">
+                    <img src="${p.image}" class="card-img-top" alt="${p.name}">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <div class="d-flex flex-column align-items-start">
+                            <h5 class="card-title">${p.name}</h5>
+                            <p class="text-secondary small mb-2">${p.description}</p>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-auto">
+                            ${p.oldPrice ? `<span class="old-price">$${p.oldPrice.toLocaleString('es-CL')}</span>` : ''}
+                            <span class="price-tag">$${p.price.toLocaleString('es-CL')}</span>
+                            
+                            <button class="btn btn-primary" onclick="addToCart('${p.id}')">Agregar 🛒</button>
                         </div>
                     </div>
-                `;
-            });
-            container.innerHTML = html;
-            updateCartCount();
-        }
+                </div>
+            </div>
+        `;
+    }
 
-        function addToCart(productId) {
-            const product = products.find(p => p.id === productId);
-            if (!product) return;
-
-            const cart = getShoppingCart();
-
-            if (cart[productId]) {
-                cart[productId].quantity += 1;
-            } else {
-                cart[productId] = {
-                    id: product.id,
-                    name: product.name,
-                    price: product.price,
-                    quantity: 1
-                };
-            }
-
-            saveShoppingCart(cart);
-            updateCartCount();
-            alert(`"${product.name}" agregado al carrito.`);
-        }
-
-        function checkAuth() {
-            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-            const authLink = document.getElementById('auth-link');
-            const logoutButton = document.getElementById('logout-button');
-
-            if (isLoggedIn) {
-                authLink.textContent = 'Mi Cuenta';
-                authLink.href = 'HistorialPedidos.html'; // Redirige a historial
-                logoutButton.classList.remove('d-none');
-            } else {
-                authLink.textContent = 'Iniciar Sesión';
-                authLink.href = 'Login.html';
-                logoutButton.classList.add('d-none');
-            }
-        }
-
-        document.getElementById('logout-button').addEventListener('click', function(event) {
-            event.preventDefault();
-            localStorage.removeItem('isLoggedIn');
-            localStorage.removeItem('userEmail');
-            checkAuth();
-            alert('Sesión cerrada.');
-            window.location.href = "index.html";
-        });
-
-        window.onload = () => {
-            renderProducts();
-            checkAuth();
-        };
-    </script>
+    document.addEventListener('DOMContentLoaded', () => {
+      renderProducts();
+      updateCartCount(); 
+    });
+  </script>
 </body>
 </html>
